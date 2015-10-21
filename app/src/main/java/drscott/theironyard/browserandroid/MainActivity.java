@@ -1,5 +1,6 @@
 package drscott.theironyard.browserandroid;
 
+import android.graphics.Bitmap;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.internal.widget.ButtonBarLayout;
@@ -32,7 +33,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         fwdButton.setOnClickListener(this);
         goButton.setOnClickListener(this);
 
-        webView.setWebViewClient(new WebViewClient()); //tells androids to ignore normal browsers
+        WebViewClient client = new WebViewClient(){
+            @Override
+            public void onPageStarted(WebView view, String url, Bitmap favicon) {
+               addressBar.setText(url);
+            }
+        };
+
+        webView.setWebViewClient(client); //tells androids to ignore normal browsers
+
     }
 
     @Override
